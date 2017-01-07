@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div style="height:100%; width:100%;">
+         <div id="map"></div>
+    </div>
+    <script>
+// If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+    var city;
+    var pam;
+    var arr;
+    function initMap() {
+
+      $.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?')
+         .done (function(location)
+         {
+            city = location.city;
+          //	alert(city)
+
+            $.ajax({
+                  type: 'POST',
+                  // make sure you respect the same origin policy with this url:
+                  // http://en.wikipedia.org/wiki/Same_origin_policy
+                  url: '{{ url_for('main.rests_in_city')}}',
+                  data: {
+                    name : city
+                  },
+                  success: function(msg){
+                      pam = msg.result[0].address;
+                      arr = msg.result;
+                      console.log(arr);
+
+                      geocoder = new google.maps.Geocoder();
+                      arr.forEach(function(item){
+
+                        var contentString =
+                            '<a href="http://someUrl.com/"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
+                            '<p>Address: '+ item.address + '</p>';
+                        var infowindow = new google.maps.InfoWindow({
+                          content: contentString
+                        });
+                        geocoder.geocode({'address': item.address }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                var marker = new google.maps.Marker({
+                                    position: results[0].geometry.location,
+                                });
+                                marker.setMap(map);
+                                marker.addListener('click', function() {
+                                  infowindow.open(map, marker);
+                                });
+
+                            } else {
+                                document.getElementById("address").value = status;
+                            }
+                        });
+
+                      });
+
+                  }
+                });
+
+
+         });
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 15,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+      });
+      var infoWindow = new google.maps.InfoWindow({map: map});
+
+      // Try HTML5 geolocation.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Your are here');
+          map.setCenter(pos);
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+      var myLatLng = {lat: -25.363, lng: 131.044};
+
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+      });
+
+
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+    }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwgSTj_u9LLnEevAohZBIlpRDXrdjkYvI&signed_in=true&callback=initMap"       async defer>
+    </script>
+  </body>
+</html>
