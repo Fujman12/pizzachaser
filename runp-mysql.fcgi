@@ -20,9 +20,9 @@ from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app('production')
-manager = Manager(app)
-migrate = Migrate(app, db)
+main_app = create_app('production')
+manager = Manager(main_app)
+migrate = Migrate(main_app, db)
 
 if __name__ == '__main__':
-    WSGIServer(app).run()
+    WSGIServer(main_app).run()
