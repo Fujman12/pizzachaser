@@ -1,4 +1,4 @@
-#!venv/bin/python
+#!pvenv/bin/python
 import os
 import warnings
 warnings.filterwarnings("ignore")
@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore")
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 try:
-    from project import config_mysql
+    from app import config_mysql
     os.environ['DATABASE_URL'] = 'mysql://%s:%s@localhost/%s' % (
         config_mysql.username, config_mysql.password, config_mysql.db)
 
@@ -16,7 +16,7 @@ except ImportError:
 
 from flup.server.fcgi import WSGIServer
 
-from project import create_app, db
+from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
