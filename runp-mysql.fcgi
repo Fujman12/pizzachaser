@@ -11,8 +11,9 @@ try:
         config_mysql.username, config_mysql.password, config_mysql.db)
 
 except ImportError:
-    os.environ['DATABASE_URL'] = 'sqlite:///' \
-        + os.path.join(basedir, 'app/app.db')
+    #os.environ['DATABASE_URL'] = 'sqlite:///' \
+    #    + os.path.join(basedir, 'app/app.db')
+    os.environ['DATABASE_URL'] = 'mysql://pizzachaser:1q2w3e@localhost/pizzadb' 
 
 from flup.server.fcgi import WSGIServer
 
