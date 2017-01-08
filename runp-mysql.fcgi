@@ -12,7 +12,7 @@ try:
 
 except ImportError:
     os.environ['DATABASE_URL'] = 'sqlite:///' \
-        + os.path.join(basedir, 'project/app.db')
+        + os.path.join(basedir, 'app/app.db')
 
 from flup.server.fcgi import WSGIServer
 
