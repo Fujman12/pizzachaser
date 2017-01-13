@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, current_app,request
 from .. import db
-from ..models import City, Restaurant,State
+from ..models import City, Restaurant,State,Country
 from ..email import send_email
 from . import main
 from .forms import NameForm
@@ -19,11 +19,11 @@ def country(country_name):
 
     if country_name.upper() == 'USA':
         states = State.query.all();
-        return render_template('country_states.html',states = states)
+        return render_template('country_states.html',states = states,Country= 'USA')
     else:
         #current_country = Country.query.filter_by(name = country_name).first()
         #cities_in_country =  current_country.cities.all()
-        return render_template('country_cities.html')
+        return render_template('country_cities.html', Country= country_name)
 
 @main.route('/state/<state>')
 def state(state):
@@ -74,18 +74,20 @@ def result():
 def rests_in_city():
     name = request.form['name']
 
-    #current_city = City.query.filter_by(name = name)[1]
-    #rests_in_city = current_city.restaurants.all()
+    current_city = City.query.filter_by(name = name).first()
+    rests_in_city = current_city.restaurants.all()
 
-    #return jsonify(result = [e.serialize() for e in rests_in_city])
-    return None
+    return jsonify(result = [e.serialize() for e in rests_in_city])
+    #return None
 @main.route('/rests_in_country', methods=['GET','POST'])
 def rests_in_country():
     name = request.form['name']
 
     current_country = Country.query.filter_by(name = name).first()
+
     rests_in_country = current_country.restaurants.all()
 
+    #return 'Blah'
     return jsonify(result = [e.serialize() for e in rests_in_country])
 
 @main.route('/rests_in_state', methods=['GET','POST'])
@@ -95,4 +97,4 @@ def rests_in_state():
     current_state = State.query.filter_by(name = name).first()
     rests_in_state = current_state.restaurants.all()
 
-    return jsonify(result = [e.serialize() for e in rests_in_country])
+    return jsonify(result = [e.serialize() for e in rests_in_state])

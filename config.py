@@ -22,7 +22,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'mysql+pymysql://root@localhost/pizzadb'
+        'mysql+pymysql://Fujman:1q2w3e@localhost:8889/pizzadb'
 
 
 class TestingConfig(Config):
