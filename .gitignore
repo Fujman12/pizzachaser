@@ -4,3 +4,4 @@ migrations/*
 */*.pyc
 */*/*.pyc
 venv/*
+app/config_mysql.py
