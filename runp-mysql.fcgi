@@ -1,4 +1,4 @@
-#!pvenv/bin/python
+#!venv/bin/python
 import os
 import warnings
 warnings.filterwarnings("ignore")
@@ -13,7 +13,7 @@ try:
 except ImportError:
     #os.environ['DATABASE_URL'] = 'sqlite:///' \
     #    + os.path.join(basedir, 'app/app.db')
-    os.environ['DATABASE_URL'] = 'mysql://pizzachaser:1q2w3e@localhost/pizzadb' 
+    os.environ['DATABASE_URL'] = 'mysql://pizzachaser:1q2w3e@localhost/pizzadb'
 
 from flup.server.fcgi import WSGIServer
 
