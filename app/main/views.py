@@ -38,12 +38,19 @@ def state(state):
 
     return render_template('state.html',state = state,cities = cities)
 
-@main.route('/city/<city_name>')
+@main.route('/city/<city_name>/')
 def city(city_name):
+    state = request.args.get('state')
+    country = request.args.get('country')
+    region = None
+    if state == None:
+        region = country
+    else:
+        region = state
     #current_city = City.query.filter_by(name = current_city).first()
     #rests_in_city = current_city.restaurants.all()
 
-    return render_template('city.html',city_name = city_name)
+    return render_template('city.html',city_name = city_name,region = region)
 
 @main.route('/pizza_restaurant/<restaurant_name>')
 def pizza_restaurant(restaurant_name):
