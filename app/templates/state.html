@@ -105,7 +105,7 @@
 					<div class="header-choose-city">
 						<h2>Choose your city</h2>
 						{% for city in cities %}
-							<a href="{{url_for('main.city', city_name = city.name)}}" class="link">{{city.name}}</a>
+							<a href="{{url_for('main.city', city_name = city.name, state = state)}}" class="link">{{city.name}}</a>
 						{% endfor %}
 
 					</div>
