@@ -5,3 +5,4 @@ migrations/*
 */*/*.pyc
 venv/*
 app/config_mysql.py
+parse_it.py
