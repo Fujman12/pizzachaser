@@ -24,6 +24,7 @@ class Restaurant(db.Model):
 class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True, nullable = False)
+    points = db.Column(db.Integer,nullable = False)
     text = db.Column(db.String(280), nullable = False)
     user = db.Column(db.String(30), nullable = False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable = False)
