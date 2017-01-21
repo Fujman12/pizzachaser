@@ -182,8 +182,12 @@
 						{%endfor%}
 					
 					</div>
-					<div class="col-xs-4 "><h3>Canada</h3>
-						<a> Toronto </a> <br>
+					<div class="col-xs-4 ">
+					<a href="{{url_for('main.country', country_name='Canada')}}"><h3>Canada</h3></a>
+						{%for city in ca_cities%}
+						<a href="{{url_for('main.city',city_name = city.name, country = city.country.name)}}">{{city.name}} </a><br>
+						{%endfor%}
+						<!--a> Toronto </a> <br>
 					    <a> Montreal </a> <br>
 					    <a> Vancouver </a> <br>
 					    <a> Ottawa–Gatineau </a> <br>
@@ -329,7 +333,7 @@
 					    <a> Lacombe </a> <br>
 					    <a> Dawson Creek </a> <br>
 					    <a> Elliot Lake </a> <br>
-					    <a> Bay Roberts </a>
+					    <a> Bay Roberts </a-->
 					</div>
 					<div class="col-xs-4 ">
 					<a href="{{url_for('main.country', country_name='United Kingdom')}}"><h3>United Kingdom</h3></a>

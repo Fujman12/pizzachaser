@@ -11,10 +11,13 @@ import json
 @main.route('/', methods=['GET', 'POST'])
 def index():
     states = State.query.all();
-    country_uk=Country.query.filter_by(name='United Kingdom').first()
-    uk_cities = country_uk.cities.all()
 
-    return render_template('index.html',states = states,uk_cities = uk_cities)
+    country_uk=Country.query.filter_by(name='United Kingdom').first()
+    country_ca = Country.query.filter_by(name = 'Canada').first()
+    uk_cities = country_uk.cities.all()
+    ca_cities = country_ca.cities.all()
+
+    return render_template('index.html',states = states,uk_cities = uk_cities,ca_cities =ca_cities )
 
 @main.route('/country/<country_name>')
 def country(country_name):
