@@ -11,8 +11,10 @@ import json
 @main.route('/', methods=['GET', 'POST'])
 def index():
     states = State.query.all();
+    country_uk=Country.query.filter_by(name='United Kingdom').first()
+    uk_cities = country_uk.cities.all()
 
-    return render_template('index.html',states = states)
+    return render_template('index.html',states = states,uk_cities = uk_cities)
 
 @main.route('/country/<country_name>')
 def country(country_name):
@@ -47,16 +49,16 @@ def city(city_name):
         region = country
     else:
         region = state
-    #current_city = City.query.filter_by(name = current_city).first()
-    #rests_in_city = current_city.restaurants.all()
+    current_city = City.query.filter_by(name = city_name).first()
+    rests_in_city = current_city.restaurants.all()
 
-    return render_template('city.html',city_name = city_name,region = region)
+    return render_template('city.html',city_name = city_name,region = region,rests_in_city = rests_in_city)
 
-@main.route('/pizza_restaurant/<restaurant_name>')
-def pizza_restaurant(restaurant_name):
-    current_restaurant= Restaurant.query.filter_by(name = restaurant_name).first()
+@main.route('/pizza_restaurant/<id>')
+def pizza_restaurant(id):
+    restaurant= Restaurant.query.filter_by(id = id).first()
 
-    return render_template('restaurant.html')
+    return render_template('restaurant.html',restaurant = restaurant)
 
 @main.route('/map',methods=['GET', 'POST'])
 def map():

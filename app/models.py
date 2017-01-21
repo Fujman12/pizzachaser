@@ -18,7 +18,8 @@ class Restaurant(db.Model):
         return {
             'name': self.name,
             'address': self.address,
-            'url': self.url
+            'url': self.url,
+            'id': self.id
         }
 
 class Review(db.Model):

@@ -105,6 +105,25 @@
 			</div>
 			<div class="products-wrapper" style="width:70% ;height: 100vh; overflow-y:scroll;overflow-x:hidden;  ">
 			    <div id="products" class="row list-group">
+			    	{% for rest in rests_in_city %}
+			    	<div class="item list-group-item  col-xs-2 col-lg-4">
+			            <div class="thumbnail">
+			                <div class="caption">
+			                    <h4 class="group inner list-group-item-heading">
+			                        {{rest.name}}</h4>
+			                    <p class="group inner list-group-item-text">
+			                        Adress: {{rest.address}}</p>
+			                    <div class="row">
+			                        <div class="col-xs-12">
+			                            <p class="lead">
+			                                4.5/5</p>
+			                            <a class="btn btn-success" href="{{url_for('main.pizza_restaurant',id = rest.id)}}">More...</a>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    	{% endfor %}
 			        <div class="item list-group-item  col-xs-2 col-lg-4">
 			            <div class="thumbnail">
 			                <div class="caption">
@@ -116,7 +135,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -133,7 +152,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -150,7 +169,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -167,7 +186,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -184,7 +203,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -201,7 +220,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -218,7 +237,7 @@
 			                        <div class="col-xs-12">
 			                            <p class="lead">
 			                                4.5/5</p>
-			                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">More...</a>
+			                            <a class="btn btn-success" href="#">More...</a>
 			                        </div>
 			                    </div>
 			                </div>
@@ -272,16 +291,19 @@
                       console.log(arr);
 
                       geocoder = new google.maps.Geocoder();
-                      arr.forEach(function(item){
-
+                      arr.forEach(function(item,index){
+                      	setTimeout(function(){console.log(index);
+                      		console.log(item.address);
                         var contentString =
-                            '<a href="http://someUrl.com/"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
+                            '<a href="#"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
                             '<p>Address: '+ item.address + '</p>';
                         var infowindow = new google.maps.InfoWindow({
                           content: contentString
                         });
+
                         geocoder.geocode({'address': item.address }, function (results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
+
                                 var marker = new google.maps.Marker({
                                     position: results[0].geometry.location,
                                 });
@@ -291,9 +313,14 @@
                                 });
 
                             } else {
-                                document.getElementById("address").value = status;
+                                //document.getElementById("address").value = status;
+                                console.log(status)
                             }
                         });
+                      	}, 500 * index	);
+                      	
+                        
+                        
 
                       });
 
@@ -345,6 +372,7 @@
 
 
   };
+  	
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       infoWindow.setPosition(pos);

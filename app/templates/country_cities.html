@@ -156,10 +156,10 @@
                       console.log(arr);
 
                       geocoder = new google.maps.Geocoder();
-                      arr.forEach(function(item){
-
+                      arr.forEach(function(item,index){
+                      	setTimeout(function(){console.log(index);
                         var contentString =
-                            '<a href="http://someUrl.com/"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
+                            '<a href="#"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
                             '<p>Address: '+ item.address + '</p>';
                         var infowindow = new google.maps.InfoWindow({
                           content: contentString
@@ -178,7 +178,7 @@
                                 document.getElementById("address").value = status;
                             }
                         });
-
+                    	}, 500 * index	);
                       });
 
                   }
