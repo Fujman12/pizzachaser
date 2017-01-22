@@ -318,9 +318,9 @@
                             }
                         });
                       	}, 500 * index	);
-                      	
-                        
-                        
+
+
+
 
                       });
 
@@ -337,7 +337,7 @@
       });
       //var infoWindow = new google.maps.InfoWindow({map: map});
 
-	  geocoder.geocode({'address': '{{city_name}}' }, function (results, status) {
+	  geocoder.geocode({'address': '{{city_name}}, {{region}}' }, function (results, status) {
 		  if (status == google.maps.GeocoderStatus.OK) {
 			  map.setCenter(results[0].geometry.location);
 
@@ -372,7 +372,7 @@
 
 
   };
-  	
+
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       infoWindow.setPosition(pos);

@@ -26,9 +26,9 @@ def country(country_name):
         states = State.query.all();
         return render_template('country_states.html',states = states,Country= 'USA')
     else:
-        #current_country = Country.query.filter_by(name = country_name).first()
-        #cities_in_country =  current_country.cities.all()
-        return render_template('country_cities.html', Country= country_name)
+        current_country = Country.query.filter_by(name = country_name).first()
+        cities_in_country =  current_country.cities.all()
+        return render_template('country_cities.html', Country= country_name, cities= cities_in_country)
 
 @main.route('/state/<state>')
 def state(state):
@@ -43,15 +43,15 @@ def state(state):
 
     return render_template('state.html',state = state,cities = cities)
 
-@main.route('/city/<city_name>/')
-def city(city_name):
-    state = request.args.get('state')
-    country = request.args.get('country')
-    region = None
-    if state == None:
-        region = country
-    else:
-        region = state
+@main.route('/city/<region>/<city_name>/')
+def city(region,city_name):
+    #state = request.args.get('state')
+    #country = request.args.get('country')
+    #region = None
+    #if state == None:
+#        region = country
+    #else:
+    #    region = state
     current_city = City.query.filter_by(name = city_name).first()
     rests_in_city = current_city.restaurants.all()
 

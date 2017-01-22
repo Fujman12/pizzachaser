@@ -104,7 +104,10 @@
 				<div class="col-xs-12">
 					<div class="header-choose-city">
 						<h2>Choose your city</h2>
-						<a href="#" class="link">Alabama<span></span></a>
+						{% for city in cities %}
+							<a href="{{url_for('main.city', region = Country, city_name = city.name )}}" class="link">{{city.name}}</a>
+						{% endfor %}
+
 					</div>
 					<div class="adsense ad3">
 						Adsense
