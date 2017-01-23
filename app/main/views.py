@@ -1,12 +1,15 @@
 from flask import render_template, session, redirect, url_for, current_app,request
 from .. import db
-from ..models import City, Restaurant,State,Country
+from ..models import City, Restaurant,State,Country,Review
 from ..email import send_email
 from . import main
-from .forms import NameForm
+from .forms import ReviewForm
 from flask import jsonify
+from flask import flash
 import sys
 import json
+from decimal import *
+
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -54,14 +57,40 @@ def city(region,city_name):
     #    region = state
     current_city = City.query.filter_by(name = city_name).first()
     rests_in_city = current_city.restaurants.all()
+    new_rests = []
+    for rest in rests_in_city:
+        reviews = rest.reviews.all()
+        summ = Decimal(0)
+        avg = Decimal(0)
 
-    return render_template('city.html',city_name = city_name,region = region,rests_in_city = rests_in_city)
+        count = len(reviews)
+        if count == 0:
+            count = 1
+        for review in reviews:
+            summ += Decimal(review.points)
+        avg = Decimal(summ/count)
+        new_rest = {'id':rest.id,'name':rest.name,'address':rest.address,'avg':avg}
+        new_rests.append(new_rest)
+    return render_template('city.html',city_name = city_name,region = region,rests_in_city = new_rests)
 
-@main.route('/pizza_restaurant/<id>')
+@main.route('/pizza_restaurant/<id>', methods=['GET', 'POST'])
 def pizza_restaurant(id):
-    restaurant= Restaurant.query.filter_by(id = id).first()
 
-    return render_template('restaurant.html',restaurant = restaurant)
+
+    restaurant= Restaurant.query.filter_by(id = id).first()
+    form = ReviewForm()
+    reviews = Review.query.filter_by(restaurant = restaurant).all()
+    if form.validate_on_submit():
+        points = form.radio.data
+        flash('Your review has been added succesfully! Points: %s'% points)
+
+        review = Review(points = form.radio.data,user =  form.name.data, text = form.review_field.data,restaurant = restaurant)
+        db.session.add(review)
+        db.session.commit()
+        return  redirect(url_for('main.pizza_restaurant', id = restaurant.id))
+    if request.method == 'POST':
+        flash('Wrong input. Make sure you\'ve entered your name, review and points')
+    return render_template('restaurant.html',restaurant = restaurant, form = form,  reviews = reviews)
 
 @main.route('/map',methods=['GET', 'POST'])
 def map():

@@ -30,7 +30,7 @@ class Review(db.Model):
     text = db.Column(db.String(280), nullable = False)
     user = db.Column(db.String(30), nullable = False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable = False)
-    username = db.Column(db.String(30),nullable = False)
+    #username = db.Column(db.String(30),nullable = False, default=None)
 
 class City(db.Model):
     __tablename__ = 'cities'

@@ -103,7 +103,7 @@
 			<div class="h2-wrapper">
 				<h3>List of restaurants</h3>
 			</div>
-			<div class="products-wrapper" style="width:70% ;height: 100vh; overflow-y:scroll;overflow-x:hidden;  ">
+			<div class="products-wrapper" style="width:70% ;max-height:100vh; overflow-y:scroll;overflow-x:hidden;  ">
 			    <div id="products" class="row list-group">
 			    	{% for rest in rests_in_city %}
 			    	<div class="item list-group-item  col-xs-2 col-lg-4">
@@ -112,11 +112,11 @@
 			                    <h4 class="group inner list-group-item-heading">
 			                        {{rest.name}}</h4>
 			                    <p class="group inner list-group-item-text">
-			                        Adress: {{rest.address}}</p>
+			                        Address: {{rest.address}}</p>
 			                    <div class="row">
 			                        <div class="col-xs-12">
 			                            <p class="lead">
-			                                4.5/5</p>
+			                                {{rest.avg|round(2)}}/5</p>
 			                            <a class="btn btn-success" href="{{url_for('main.pizza_restaurant',id = rest.id)}}">More...</a>
 			                        </div>
 			                    </div>
@@ -124,125 +124,8 @@
 			            </div>
 			        </div>
 			    	{% endfor %}
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="item list-group-item  col-xs-2 col-lg-4">
-			            <div class="thumbnail">
-			                <div class="caption">
-			                    <h4 class="group inner list-group-item-heading">
-			                        Product title</h4>
-			                    <p class="group inner list-group-item-text">
-			                        Adress: {Adresss}</p>
-			                    <div class="row">
-			                        <div class="col-xs-12">
-			                            <p class="lead">
-			                                4.5/5</p>
-			                            <a class="btn btn-success" href="#">More...</a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
+
+
 		        </div>
 		    </div>
 	    </div>

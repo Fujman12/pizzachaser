@@ -1,6 +1,6 @@
 $(function() {
-	
-	
+
+
 	$(".toggle-mnu").click(function() {
 	  	$(this).toggleClass("on");
 	  	$(".main-mnu-hidden").slideToggle();
@@ -17,6 +17,7 @@ $(function() {
 
 	//E-mail Ajax Send
 	//Documentation & Example: https://github.com/agragregra/uniMail
+	/*
 	$("form").submit(function() { //Change
 		var th = $(this);
 		$.ajax({
@@ -32,7 +33,7 @@ $(function() {
 		});
 		return false;
 	});
-
+*/
 	//Chrome Smooth Scroll
 	try {
 		$.browserSelector();
