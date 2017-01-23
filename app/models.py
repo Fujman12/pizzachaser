@@ -11,6 +11,7 @@ class Restaurant(db.Model):
     state_id = db.Column(db.Integer, db.ForeignKey('states.id'), nullable = True)
     address = db.Column(db.String(150), nullable = False)
     url = db.Column(db.String(520),nullable = True)
+    phone = db.Column(db.String(30), nullable = True)
 
     reviews = db.relationship('Review', backref='restaurant', lazy='dynamic')
 
