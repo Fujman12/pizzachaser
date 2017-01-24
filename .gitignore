@@ -8,3 +8,4 @@ app/config_mysql.py
 parse_it.py
 debug.log
 parse_csv.py
+PizzaRestaurants.csv
