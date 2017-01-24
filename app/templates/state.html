@@ -29,8 +29,8 @@
 	<link rel="apple-touch-icon" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://use.fontawesome.com/3d58921cc2.js"></script>
+	<script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script async src="https://use.fontawesome.com/3d58921cc2.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 	<div class="is-home">
 		<nav class="main-mnu-hidden hidden-lg">
 			<ul>
-				<li><a href="{{url_for('main.own_a_restaurant')}}">Own a pizza restaurant?</a></li>
+				<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
 				<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 				<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 			</ul>
@@ -61,7 +61,7 @@
 		            	<div class="col-lg-6">
 		            		<nav class="main-mnu hidden-md hidden-sm hidden-xs">
 								<ul>
-									<li><a href="{{url_for('main.own_a_restaurant')}}">Own a pizza restaurant?</a></li>
+									<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
 									<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 									<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 								</ul>

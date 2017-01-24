@@ -8,7 +8,7 @@
 
 	<meta charset="utf-8">
 
-	<title>{{restaurant.name}} - Read Reviews & Leave A Review</title>
+	<title>{{restaurant.name}} in {{restaurant.city.name}}, {% if restaurant.state %}{{ restaurant.state.name}} {% else %} {{ restaurant.country.name }} {% endif %} - Read Reviews & Leave A Review</title>
 	<meta name="description" content="Looking for {{restaurant.name}} in your area? Find the nearest location and satisfy that pizza crave. Click to find nearby location.">
 
 	<!-- Bootstrap v3.3.4 Grid Styles -->
@@ -29,8 +29,8 @@
 	<link rel="apple-touch-icon" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://use.fontawesome.com/3d58921cc2.js"></script>
+	<script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script async src="https://use.fontawesome.com/3d58921cc2.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 	<div class="is-home">
 		<nav class="main-mnu-hidden hidden-lg">
 			<ul>
-				<li><a href="{{url_for('main.own_a_restaurant')}}">Own a pizza restaurant?</a></li>
+				<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank" >Own a pizza restaurant?</a></li>
 				<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 				<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 			</ul>
@@ -61,7 +61,7 @@
 		            	<div class="col-lg-6">
 		            		<nav class="main-mnu hidden-md hidden-sm hidden-xs">
 								<ul>
-									<li><a href="{{url_for('main.own_a_restaurant')}}">Own a pizza restaurant?</a></li>
+									<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
 									<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 									<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 								</ul>
@@ -80,7 +80,7 @@
 		        	<div class="container">
 			        	<div class="row">
 			        		<div class="col-md-12">
-			        			<h1>{{restaurant.name}} Pizza Restaurant</h1>
+			        			<h1>{{restaurant.name}}</h1>
 					        	<h2>Have you tried a pizza from {{restaurant.name}}, if so then leave a review or perhaps read review from prior customers.</h2>
 
 					 			<div class="adsense ad1">
@@ -104,7 +104,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h2>Feedbacks</h2>
+					<h2>Rate & Review<br>{{restaurant.name}}</h2>
 					{% for message in get_flashed_messages() %}
 					<div class="alert alert-warning">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -123,6 +123,7 @@
 								{{ form.review_field(rows = "7", placeholder = 'Leave your feedback ...')}}
 
 							</div>
+							<span style="font-size: 16px">Rate from 1 to 5:</span>
 							{% for subfield in form.radio %}
 							<tr>
 								<td>{{subfield}}</td>
@@ -130,7 +131,7 @@
 							</tr>
 							{% endfor %}
 
-							{{ form.submit() }}
+							{{ form.submit(class = "submit") }}
 						</form>
 					</div>
 					<div class="feedbacks">
