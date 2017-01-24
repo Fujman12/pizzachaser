@@ -120,6 +120,7 @@
 			</div>
 		</div>
 		<div class="select-wrapper" id="filter">
+			<br>
 			<span>Start typing or choose your location:&nbsp;</span>
 			<select class="js-example-basic-multiple" multiple="multiple" placeholder="Choose">
 			  {% for state in states %}
@@ -214,6 +215,7 @@
 
 					</div>
 					<div class="col-xs-4 ">
+						<br>
 					<a href="{{url_for('main.country', country_name='Canada')}}"><h3>Canada</h3></a>
 						{%for city in ca_cities%}
 						<a href="{{url_for('main.city',city_name = city.name, region = city.country.name)}}"> {{city.name}}</a><br>
