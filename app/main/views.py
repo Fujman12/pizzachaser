@@ -3,7 +3,7 @@ from .. import db
 from ..models import City, Restaurant,State,Country,Review
 from ..email import send_email
 from . import main
-from .forms import ReviewForm
+from .forms import ReviewForm, OwnForm
 from flask import jsonify
 from flask import flash
 import sys
@@ -82,15 +82,65 @@ def pizza_restaurant(id):
     reviews = Review.query.filter_by(restaurant = restaurant).all()
     if form.validate_on_submit():
         points = form.radio.data
-        flash('Your review has been added succesfully! Points: %s'% points)
+        flash('Your review has been added succesfully! You gave %s point(s).'% points)
 
         review = Review(points = form.radio.data,user =  form.name.data, text = form.review_field.data,restaurant = restaurant)
         db.session.add(review)
         db.session.commit()
         return  redirect(url_for('main.pizza_restaurant', id = restaurant.id))
     if request.method == 'POST':
-        flash('Wrong input. Make sure you\'ve entered your name, review and points')
+        flash('Wrong input.Please make sure you\'ve entered your name, review and points')
     return render_template('restaurant.html',restaurant = restaurant, form = form,  reviews = reviews)
+
+@main.route('/own_a_restaurant',methods=['GET', 'POST'])
+def own_a_restaurant():
+    form = OwnForm()
+    city = None
+    state = None
+    country = None
+    if form.validate_on_submit():
+        country = Country.query.filter_by(name = form.country.data).first()
+        if  country != None:
+            #state = State.query.filter_by(name = form.state.data).first()
+            #if state == None:
+            #    flash('Wrong state!Please make sure you\'ve entered correct USA state name')
+            #    return  redirect(url_for('main.own_a_restaurant'))
+            state = State.query.filter_by(name = form.state.data).first()
+
+            if state != None:
+                city = state.cities.filter_by(name = form.city.data).first()
+                if city != None:
+                    country = Country.query.filter_by(name = "USA").first()
+                    rest = Restaurant(name = form.name_of_rest.data, country = country, state = state, city =  city, address = form.address.data)
+                    db.session.add(rest)
+                    db.session.commit()
+                    flash('Your Restaurant succesfully added! Thank you!')
+                    return  redirect(url_for('main.own_a_restaurant'))
+                else:
+                    flash('Wrong city name')
+                    return  redirect(url_for('main.own_a_restaurant'))
+
+            if state == None:
+                city = country.cities.filter_by(name = form.city.data).first()
+
+                if city != None:
+
+                    rest = Restaurant(name = form.name_of_rest.data,country = country, city =  city, address = form.address.data)
+                    db.session.add(rest)
+                    db.session.commit()
+                    flash('Your Restaurant succesfully added! Thank you!')
+                    return  redirect(url_for('main.own_a_restaurant'))
+                else:
+                    flash('Wrong city name')
+                    return  redirect(url_for('main.own_a_restaurant'))
+
+        else:
+            flash('Wrong country!Please make sure you\'ve entered correct country name')
+
+        return  redirect(url_for('main.own_a_restaurant'))
+    if request.method == 'POST':
+        flash('Wrong input! Please fill out the required data fields ')
+    return render_template('own.html', form = form)
 
 @main.route('/map',methods=['GET', 'POST'])
 def map():
@@ -116,6 +166,8 @@ def rests_in_city():
     name = request.form['name']
 
     current_city = City.query.filter_by(name = name).first()
+    if current_city == None:
+        return None;
     rests_in_city = current_city.restaurants.all()
 
     return jsonify(result = [e.serialize() for e in rests_in_city])

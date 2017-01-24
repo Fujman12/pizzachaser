@@ -31,7 +31,7 @@
 	<link rel="apple-touch-icon" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
-	
+
 
 	<script src="https://use.fontawesome.com/3d58921cc2.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -66,7 +66,7 @@
 		            	<div class="col-lg-6">
 		            		<nav class="main-mnu hidden-md hidden-sm hidden-xs">
 								<ul>
-									<li><a href="#">Own a pizza restaurant?</a></li>
+									<li><a href="{{url_for('main.own_a_restaurant')}}">Own a pizza restaurant?</a></li>
 									<li><a href="#filter">Filter restaurants</a></li>
 									<li><a href="#footer">Choose location</a></li>
 								</ul>
@@ -119,8 +119,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="select-wrapper">
-			<span>Choose your location:&nbsp;</span>
+		<div class="select-wrapper" id="filter">
+			<span>Start typing or choose your location:&nbsp;</span>
 			<select class="js-example-basic-multiple" multiple="multiple" placeholder="Choose">
 			  {% for state in states %}
 			  <optgroup label="{{state.name}}">
@@ -129,7 +129,7 @@
 			  {% endfor %}
 			  </optgroup>
 			  {% endfor %}
-			  
+
 			  <optgroup label = "Canada">
 			  	{% for city in ca_cities %}
 			  	<option value="{{url_for('main.city',city_name = city.name, region = city.country.name)}}">{{city.name}}</option>
@@ -143,10 +143,10 @@
 			  <!--option><a href="#" class="detail-link">hellos</a></option>
 			  <option><a href="#" class="detail-link">hellssos</a></option>
 			  <option><a href="#" class="detail-link">hellods</a></option-->
-			  
+
 			</select>
 		</div>
-		
+
 		<!--nav class="navbar navbar-default" id="filter">
 		  <div class="container">
 		    <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -472,7 +472,7 @@
          {
             city = location.city;
           //	alert(city)
-/*
+
             $.ajax({
                   type: 'POST',
                   // make sure you respect the same origin policy with this url:
@@ -491,7 +491,7 @@
                       	setTimeout(function(){console.log(index);
 
                         var contentString =
-                            '<a href="http://someUrl.com/"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
+                            '<a href="#"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
                             '<p>Address: '+ item.address + '</p>';
                         var infowindow = new google.maps.InfoWindow({
                           content: contentString
@@ -507,7 +507,7 @@
                                 });
 
                             } else {
-                                document.getElementById("address").value = status;
+                                console.log("Geocoder error");
                             }
                         });
 						}, 500 * index	);
@@ -516,7 +516,7 @@
                   }
                 });
 
-*/
+
          });
 
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -578,11 +578,11 @@
 	</script>
 	<script type="text/javascript">
 	//$(".js-example-basic-multiple").select2();
-	
+
 	var search = $(".js-example-basic-multiple").select2();
     search.on('change',function (evt) {
 		  // Do something
-		  
+
 		  var text = search.val();
 		  //alert(text);
 		  window.location.replace(text);
