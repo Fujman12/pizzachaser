@@ -191,3 +191,9 @@ def rests_in_state():
     rests_in_state = current_state.restaurants.all()
 
     return jsonify(result = [e.serialize() for e in rests_in_state])
+
+
+#Google verification
+@main.route('/google3438b6f6e785c5f8.html', methods=['GET','POST'])
+def google():
+    return render_template('google3438b6f6e785c5f8.html')
