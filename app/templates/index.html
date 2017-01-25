@@ -226,7 +226,7 @@
 				<div class="row">
 					<div class="col-xs-4">
 						<a href="{{url_for('main.country', country_name='USA')}}"><h3>United States</h3></a>
-						{%for state in states%}
+						<!--{%for state in states%}
 						<a href="{{url_for('main.state', state=state.name)}}">{{state.name}}</a><br>
 						<div class="cities">
 							<ul>
@@ -239,22 +239,22 @@
 							</ul>
 						</div>
 						{%endfor%}
-
+					-->
 					</div>
 					<div class="col-xs-4 ">
-						<br>
+					
 					<a href="{{url_for('main.country', country_name='Canada')}}"><h3>Canada</h3></a>
-						{%for city in ca_cities%}
+						<!--{%for city in ca_cities%}
 						<a href="{{url_for('main.city',city_name = city.name, region = city.country.name)}}"> {{city.name}}</a><br>
 						{%endfor%}
-
+					-->
 					</div>
 					<div class="col-xs-4 ">
 					<a href="{{url_for('main.country', country_name='United Kingdom')}}"><h3>United Kingdom</h3></a>
-						{%for city in uk_cities%}
+					<!--	{%for city in uk_cities%}
 						<a href="{{url_for('main.city', region = city.country.name,city_name = city.name)}}">{{city.name}} </a><br>
 						{%endfor%}
-
+					-->
 
 					</div>
 				</div>
