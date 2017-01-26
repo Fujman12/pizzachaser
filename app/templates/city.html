@@ -42,6 +42,7 @@
 				<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
 				<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 				<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
+				<li><a href="{{url_for('main.contacts')}}">Contact Us</a></li>
 			</ul>
 		</nav>
 		<div class="header">
@@ -58,16 +59,17 @@
 								<a href="{{url_for('main.index')}}"><span>PizzaChaser.com</span></a>
 							</div>
 						</div>
-		            	<div class="col-lg-6">
+		            	<div class="col-lg-8">
 		            		<nav class="main-mnu hidden-md hidden-sm hidden-xs">
 								<ul>
 									<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
 									<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
 									<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
+									<li><a href="{{url_for('main.contacts')}}">Contact Us</a></li>
 								</ul>
 							</nav>
 		            	</div>
-		            	<div class="col-lg-3 col-sm-1 col-xs-2">
+		            	<div class="col-lg-1 col-sm-1 col-xs-2">
 		            		<div class="sign-in">
 		            			<span class="sign hidden-xs hidden-sm hidden-md"></span>
 		            			<a href="#" class="toggle-mnu hidden-lg"><span></span></a>
@@ -162,8 +164,12 @@
 
 			</div>
 
+	<div class="disclaimer">
+		<h3>DISCLAIMER: PizzaChaser.com attempts to provide accurate and up-to-date information in good faith, however cannot guarantee the information will always be accurate, complete and up-to-date. The map data and directions information is provided by a third party, PizzaChaser.com has no control over this information. PizzaChaser.com accepts no liability for any loss, damage or inconvenience caused by reliance on any information in this system.<br><br>
 
-	<div class="footer">Copyright  2016 - PizzaChaser.com - Grow Clientele LLC</div>
+		NOTE: The information provided should under no circumstances be relied upon as accurate and is subject to change without notice.</h3>
+	</div>
+	<div class="footer">Copyright  2016 - PizzaChaser.com - Grow Clientele LLC - <a style="color:#000" href="{{url_for('main.privacypolicy')}}">Privacy Policy</a></div>
 
 	<div class="hidden"></div>
 

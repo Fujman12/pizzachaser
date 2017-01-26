@@ -8,7 +8,7 @@
 
 	<meta charset="utf-8">
 
-	<title>Pizza Near Me - Find Pizza Restaurants Nearby</title>
+	<title>PizzaChaser.com - Contact us</title>
 	<meta name="description" content="You're searching for 'pizza near me' or perhaps 'pizza nearby' that offer delivery, carryout or dine-in. Find them all at PizzaChaser.com">
 
 	<!-- Bootstrap v3.3.4 Grid Styles -->
@@ -19,23 +19,18 @@
 
 	<!-- Load Main CSS Compilled without JS -->
 	<noscript>
-		<link rel="stylesheet" href="{{url_for('static',filename='_main.min.css')}}">
+		<link rel="stylesheet" href="_main.min.css">
 	</noscript>
-	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'select2.min.css')}}">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-	<!--link rel="shortcut icon" href="{{url_for('static', filename = 'img/favicon/favicon.ico')}}" type="image/x-icon"-->
+
 	<link rel="shortcut icon" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}" type="image/x-icon">
 	<link rel="apple-touch-icon" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
 	<link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static', filename = 'img/favicon/Logo.png')}}">
-
-
-	<script async src="https://use.fontawesome.com/3d58921cc2.js"></script>
 	<script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script async type="text/javascript" src="{{url_for('static', filename = 'js/select2.full.min.js')}}"></script>
+	<script async src="https://use.fontawesome.com/3d58921cc2.js"></script>
 </head>
 
 <body>
@@ -44,9 +39,9 @@
 	<div class="is-home">
 		<nav class="main-mnu-hidden hidden-lg">
 			<ul>
-				<li><a href="{{url_for('main.own_a_restaurant')}} " target="_blank">Own a pizza restaurant?</a></li>
-				<li><a href="#filter">Filter restaurants</a></li>
-				<li><a href="#footer">Choose location</a></li>
+				<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank" >Own a pizza restaurant?</a></li>
+				<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
+				<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 				<li><a href="{{url_for('main.contacts')}}">Contact Us</a></li>
 			</ul>
 		</nav>
@@ -56,27 +51,26 @@
 		            <div class="row">
 						<div class="col-xs-2 col-sm-1">
 							<div class="logo">
-								<a href="#"><img src="{{url_for('static', filename = 'img/Logo.png')}}" alt=""></a>
+								<a href="{{url_for('main.index')}}"><img src="{{url_for('static', filename = 'img/Logo.png')}}" alt=""></a>
 							</div>
 						</div>
 						<div class="col-lg-2 col-sm-10 col-xs-8 ">
 							<div class="description">
-								<a href="#"><span>PizzaChaser.com</span></a>
+								<a href="{{url_for('main.index')}}"><span>PizzaChaser.com</span></a>
 							</div>
 						</div>
 		            	<div class="col-lg-8">
 		            		<nav class="main-mnu hidden-md hidden-sm hidden-xs">
 								<ul>
 									<li><a href="{{url_for('main.own_a_restaurant')}}" target="_blank">Own a pizza restaurant?</a></li>
-									<li><a href="#filter">Filter restaurants</a></li>
-									<li><a href="#footer">Choose location</a></li>
+									<li><a href="{{url_for('main.index')}}#filter">Filter restaurants</a></li>
+									<li><a href="{{url_for('main.index')}}#footer">Choose location</a></li>
 									<li><a href="{{url_for('main.contacts')}}">Contact Us</a></li>
 								</ul>
 							</nav>
 		            	</div>
 		            	<div class="col-lg-1 col-sm-1 col-xs-2">
 		            		<div class="sign-in">
-		            			<span class="sign hidden-xs hidden-sm hidden-md"></span>
 		            			<a href="#" class="toggle-mnu hidden-lg"><span></span></a>
 		            		</div>
 		            	</div>
@@ -84,13 +78,12 @@
 		        </div>
 		    </div>
 
-		   		<div class="article" style="position: relative;" >
+		   		<div class="article">
 		        	<div class="container">
 			        	<div class="row">
 			        		<div class="col-md-12">
-			        			<h1>Pizza Near Me</h1>
-					        	<h2>PizzaChaser.com connects you with Pizza Restaurants from all across the world. Find or search for Pizza Restaurants nearby</h2>
-					 			<div class="adsense ad1" style="width:100%; height:100%">
+								<h3 class="contacts">Thank you for visiting PizzaChaser.com</h3>
+								<div class="adsense ad1" style="width:100%; height:100%">
 									<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 									<!-- PizzaChaser Top -->
 									<ins class="adsbygoogle"
@@ -102,59 +95,19 @@
 									(adsbygoogle = window.adsbygoogle || []).push({});
 									</script>
 					 			</div>
-								<div class="select-wrapper" id="filter">
-									<br>
-									<span>Start typing or choose your location:&nbsp;</span>
-									<select class="js-example-basic-multiple" multiple="multiple" placeholder="Choose">
-									  {% for state in states %}
-									  <optgroup label="{{state.name}}">
-									  {% for city in state.cities %}
-									  <option value = "{{url_for('main.city',city_name = city.name, region = state.name)}}">{{city.name}}</option>
-									  {% endfor %}
-									  </optgroup>
-									  {% endfor %}
 
-									  <optgroup label = "Canada">
-									  	{% for city in ca_cities %}
-									  	<option value="{{url_for('main.city',city_name = city.name, region = city.country.name)}}">{{city.name}}</option>
-									  	{% endfor%}
-									  </optgroup>
-									  <optgroup label = "United Kingdom">
-									  	{% for city in uk_cities %}
-									  	<option value="{{url_for('main.city',city_name = city.name, region = city.country.name)}}">{{city.name}}</option>
-									  	{% endfor%}
-									  </optgroup>
-									  <!--option><a href="#" class="detail-link">hellos</a></option>
-									  <option><a href="#" class="detail-link">hellssos</a></option>
-									  <option><a href="#" class="detail-link">hellods</a></option-->
-
-									</select>
-								</div>
-								<div class="links" id="footer">
-									<div class="container-fluid">
-										<div class="row">
-
-											<div class="col-xs-4">
-												<a href="{{url_for('main.country', country_name='USA')}}"><img src="{{url_for('static', filename = 'img/United-States.png')}}" alt=""><h3>United States</h3></a>
-											</div>
-
-											<div class="col-xs-4 ">
-											<a href="{{url_for('main.country', country_name='Canada')}}"><img src="" alt=""><img src="{{url_for('static', filename = 'img/Canada.png')}}" alt=""><h3>Canada</h3></a>
-											</div>
-
-											<div class="col-xs-4 ">
-											<a href="{{url_for('main.country', country_name='United Kingdom')}}"><img src="{{url_for('static', filename = 'img/United-Kingdom.png')}}" alt=""><h3>United Kingdom</h3></a>
-											</div>
-
-										</div>
+								<h3 class="contacts">To contact us select your contact method below:</h3>
+									<br><br>
+									<div class="contacts-list">
+										<ul>
+											<li><span >Telephone</span>: 1-855-331-1472</li>
+										  <br>
+											<li><span >Email</span>: info@pizzachaser.com</li>
+											<br>
+											<li><span >Mail</span>: PO Box 492885, Lawrenceville, GA, 30043, USA</li>
+										</ul>
 									</div>
-								</div>
-					 			<!--div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%; height: 100%;">
 
-							    </div-->
-							    <div style="width:100%; height: 360px; position: relative;">
-					 				<div id="map" style="width:100%; height: 100%; color:#000;" ></div>
-					 			</div>
 								<div class="adsense ad2" style="width:100%; height:100%">
 									<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 									<!-- PizzaChaser Middle -->
@@ -172,83 +125,10 @@
 			        </div>
 		        </div>
 		 </div>
-		 <div class="article-about-pizza">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h2>About PizzaChaser.com</h2>
-						<p>Are you looking for pizza restaurants in your area? With PizzaChaser.com we connect you with the top restaurants within your local area. Since you've searched for "pizza near me" or a similar term and have been connected to our site, why not check out these incredible pizza restaurants nearby.<br><br>You can choose from map listings, browse or search our pizza directory.</p>
-						<div style="width:100%; height:100%" class="adsense ad3">
-							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-							<!-- Pizza Chaser Bottom -->
-							<ins class="adsbygoogle"
-							     style="display:block"
-							     data-ad-client="ca-pub-3652559295223835"
-							     data-ad-slot="1837665906"
-							     data-ad-format="auto"></ins>
-							<script>
-							(adsbygoogle = window.adsbygoogle || []).push({});
-							</script>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--div class="select-wrapper" id="filter">
-			<br>
-			<span>Start typing or choose your location:&nbsp;</span>
-			<select class="js-example-basic-multiple" multiple="multiple" placeholder="Choose">
-			  {% for state in states %}
-			  <optgroup label="{{state.name}}">
-			  {% for city in state.cities %}
-			  <option value = "{{url_for('main.city',city_name = city.name, region = state.name)}}">{{city.name}}</option>
-			  {% endfor %}
-			  </optgroup>
-			  {% endfor %}
-
-			  <optgroup label = "Canada">
-			  	{% for city in ca_cities %}
-			  	<option value="{{url_for('main.city',city_name = city.name, region = city.country.name)}}">{{city.name}}</option>
-			  	{% endfor%}
-			  </optgroup>
-			  <optgroup label = "United Kingdom">
-			  	{% for city in uk_cities %}
-			  	<option value="{{url_for('main.city',city_name = city.name, region = city.country.name)}}">{{city.name}}</option>
-			  	{% endfor%}
-			  </optgroup>
-			  <!--option><a href="#" class="detail-link">hellos</a></option>
-			  <option><a href="#" class="detail-link">hellssos</a></option>
-			  <option><a href="#" class="detail-link">hellods</a></option>
-
-			</select>
-		</div>
-
-		<dv class="links" id="footer">
-			<div class="container-fluid">
-				<div class="row">
-
-					<div class="col-xs-4">
-						<a href="{{url_for('main.country', country_name='USA')}}"><img src="{{url_for('static', filename = 'img/United-States.png')}}" alt=""><h3>United States</h3></a>
-					</div>
-
-					<div class="col-xs-4 ">
-					<a href="{{url_for('main.country', country_name='Canada')}}"><img src="" alt=""><img src="{{url_for('static', filename = 'img/Canada.png')}}" alt=""><h3>Canada</h3></a>
-					</div>
-
-					<div class="col-xs-4 ">
-					<a href="{{url_for('main.country', country_name='United Kingdom')}}"><img src="{{url_for('static', filename = 'img/United-Kingdom.png')}}" alt=""><h3>United Kingdom</h3></a>
-					</div>
-
-				</div>
-			</div>
-		</div-->
 	</div>
-	<div class="disclaimer">
-		<h3>DISCLAIMER: PizzaChaser.com attempts to provide accurate and up-to-date information in good faith, however cannot guarantee the information will always be accurate, complete and up-to-date. The map data and directions information is provided by a third party, PizzaChaser.com has no control over this information. PizzaChaser.com accepts no liability for any loss, damage or inconvenience caused by reliance on any information in this system.<br><br>
 
-		NOTE: The information provided should under no circumstances be relied upon as accurate and is subject to change without notice.</h3>
-	</div>
 	<div class="footer">Copyright  2016 - PizzaChaser.com - Grow Clientele LLC - <a style="color:#000" href="{{url_for('main.privacypolicy')}}">Privacy Policy</a></div>
+
 	<div class="hidden"></div>
 
 	<!--[if lt IE 9]>
@@ -259,140 +139,27 @@
 	<![endif]-->
 
 	<!-- Load CSS -->
-	<script async>
-// If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
 
-    var city;
-    var pam;
-    var arr;
-    function initMap() {
-
-      $.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?')
-         .done (function(location)
-         {
-            city = location.city;
-          //	alert(city)
-
-            $.ajax({
-                  type: 'POST',
-                  // make sure you respect the same origin policy with this url:
-                  // http://en.wikipedia.org/wiki/Same_origin_policy
-                  url: '{{ url_for('main.rests_in_city')}}',
-                  data: {
-                    name : city
-                  },
-                  success: function(msg){
-                      pam = msg.result[0].address;
-                      arr = msg.result;
-                      console.log(arr);
-
-                      geocoder = new google.maps.Geocoder();
-                      arr.forEach(function(item,index){
-                      	setTimeout(function(){console.log(index);
-
-                        var contentString =
-                            '<a href="#"><p><b><strong>'+ item.name +'</strong></b></p></a>'+
-                            '<p>Address: '+ item.address + '</p>';
-                        var infowindow = new google.maps.InfoWindow({
-                          content: contentString
-                        });
-                        geocoder.geocode({'address': item.address }, function (results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                var marker = new google.maps.Marker({
-                                    position: results[0].geometry.location,
-                                });
-                                marker.setMap(map);
-                                marker.addListener('click', function() {
-                                  infowindow.open(map, marker);
-                                });
-
-                            } else {
-                                console.log("Geocoder error");
-                            }
-                        });
-						}, 500 * index	);
-                      });
-
-                  }
-                });
-
-
-         });
-
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 15,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
-      });
-      var infoWindow = new google.maps.InfoWindow({map: map});
-
-      // Try HTML5 geolocation.
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent('You are here');
-          map.setCenter(pos);
-        }, function() {
-          handleLocationError(true, infoWindow, map.getCenter());
-        });
-      } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-      }
-      var myLatLng = {lat: -25.363, lng: 131.044};
-
-
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ?
-                            'Error: The Geolocation service failed.' :
-                            'Error: Your browser doesn\'t support geolocation.');
-    }
-
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwgSTj_u9LLnEevAohZBIlpRDXrdjkYvI&callback=initMap"
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwgSTj_u9LLnEevAohZBIlpRDXrdjkYvI&callback=initMap"
         async defer>
     </script>
-	<script async>
+	<script>
 		function loadCSS(hf) {
 			var ms=document.createElement("link");ms.rel="stylesheet";
 			ms.href=hf;document.getElementsByTagName("head")[0].appendChild(ms);
 		}
 		loadCSS("{{url_for('static', filename = '_header.min.css')}}"); //Header Styles (compress & paste to header after release)
 		loadCSS("{{url_for('static', filename = '_main.min.css')}}");   //User Styles + Media Queries
+
 	</script>
 
 	<!-- Load Scripts -->
-	<script async >var scr = {"scripts":[
-		{"src" : "{{url_for('static', filename = 'js/libs.js')}}", "async" : true},
-		{"src" : "{{url_for('static', filename = 'js/common.js')}}", "async" : true}
+	<script>var scr = {"scripts":[
+		{"src" : "{{url_for('static', filename = 'js/libs.js')}}", "async" : false},
+		{"src" : "{{url_for('static', filename = 'js/common.js')}}", "async" : false}
 		]};!function(t,n,r){"use strict";var c=function(t){if("[object Array]"!==Object.prototype.toString.call(t))return!1;for(var r=0;r<t.length;r++){var c=n.createElement("script"),e=t[r];c.src=e.src,c.async=e.async,n.body.appendChild(c)}return!0};t.addEventListener?t.addEventListener("load",function(){c(r.scripts);},!1):t.attachEvent?t.attachEvent("onload",function(){c(r.scripts)}):t.onload=function(){c(r.scripts)}}(window,document,scr);
 	</script>
-	<script type="text/javascript">
-	//$(".js-example-basic-multiple").select2();
 
-	var search = $(".js-example-basic-multiple").select2();
-    search.on('change',function (evt) {
-		  // Do something
 
-		  var text = search.val();
-		  //alert(text);
-		  window.location.replace(text);
-		});
-	/*
-	$("#vassa").click(function(){
-		alert("a");
-	}) */
-	</script>
 </body>
 </html>

@@ -206,3 +206,11 @@ def google():
 @main.route('/BingSiteAuth.xml', methods=['GET','POST'])
 def bing():
     return render_template('BingSiteAuth.xml')
+
+@main.route('/contacts', methods=['GET','POST'])
+def contacts():
+    return render_template('contacts.html')
+    
+@main.route('/privacy-policy', methods=['GET','POST'])
+def privacypolicy():
+    return render_template('privacypolicy.html')
