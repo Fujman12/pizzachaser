@@ -201,3 +201,7 @@ def google():
 @main.route('/BingSiteAuth.xml', methods=['GET','POST'])
 def bing():
     return render_template('BingSiteAuth.xml')
+
+@main.route('/bingsiteauth.xml', methods=['GET','POST'])
+def bing():
+    return render_template('BingSiteAuth.xml')
