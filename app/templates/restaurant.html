@@ -5,7 +5,26 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="ru"> <!--<![endif]-->
 
 <head>
-
+	<script type="application/ld+json">
+	{
+		"@context":"http://schema.org",
+		"@type":"Organization",
+		"url":"http://pizzachaser.com",
+		"sameAs":[
+			"https://pizzachaser.tumblr.com/",
+			"https://about.me/pizzachaser",
+			"https://www.facebook.com/PizzaChasercom-246420542436592/"
+		],
+		"founder": {
+			"@type": "Person",
+			"name": "Andre Skeete",
+			"sameAs":[
+				"https://plus.google.com/117372656536301694080"
+			]
+		},
+		"name":"Pizza Chaser"
+	}
+	</script>
 	<meta charset="utf-8">
 
 	<title>{{restaurant.name}} in {{restaurant.city.name}}, {% if restaurant.state %}{{ restaurant.state.name}} {% else %} {{ restaurant.country.name }} {% endif %} - Read Reviews & Leave A Review</title>
