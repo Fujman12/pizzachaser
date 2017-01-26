@@ -198,9 +198,9 @@ def rests_in_state():
 def google():
     return render_template('google3438b6f6e785c5f8.html')
 
-@main.route('/BingSiteAuth.xml', methods=['GET','POST'])
-def bing():
-    return render_template('BingSiteAuth.xml')
+#@main.route('/BingSiteAuth.xml', methods=['GET','POST'])
+#def bing():
+#    return render_template('BingSiteAuth.xml')
 
 @main.route('/bingsiteauth.xml', methods=['GET','POST'])
 def bing():
