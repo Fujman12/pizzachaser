@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, current_app,request
+from flask import render_template, session, redirect, url_for, current_app,request, make_response
 from .. import db
 from ..models import City, Restaurant,State,Country,Review
 from ..email import send_email
@@ -9,6 +9,7 @@ from flask import flash
 import sys
 import json
 from decimal import *
+from datetime import datetime, timedelta, date
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -210,7 +211,64 @@ def bing():
 @main.route('/contacts', methods=['GET','POST'])
 def contacts():
     return render_template('contacts.html')
-    
+
 @main.route('/privacy-policy', methods=['GET','POST'])
 def privacypolicy():
     return render_template('privacypolicy.html')
+
+@main.route('/city/sitemap.xml')
+def city_sitemap():
+    cities = City.query.all()
+
+    sitemap_xml = render_template('sitemap/city_sitemap.xml', cities = cities)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+@main.route('/state/sitemap.xml')
+def state_sitemap():
+    states = State.query.all()
+
+    sitemap_xml = render_template('sitemap/states_sitemap.xml', states = states)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+@main.route('/pizza_restaurant/sitemap1.xml')
+def pizza_restaurant_sitemap1():
+
+    sitemap_xml = render_template('sitemap/sitemap_rest1.xml')
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+@main.route('/pizza_restaurant/sitemap2.xml')
+def pizza_restaurant_sitemap2():
+
+    sitemap_xml = render_template('sitemap/sitemap_rest2.xml')
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+@main.route('/pizza_restaurant/sitemap.xml')
+def pizza_restaurant_sitemap():
+    rests = Restaurant.query.filter(Restaurant.id > 80203).limit(40000)
+    days_ago=(datetime.now() - timedelta(days=10)).date().isoformat()
+    sitemap_xml = render_template('sitemap/rests_sitemap.xml', rests = rests, days_ago = days_ago)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+@main.route('/sitemap_index.xml')
+def sitemap_index():
+    days_ago=(datetime.now() - timedelta(days=10)).date().isoformat()
+    sitemap_xml = render_template('sitemap/sitemap_index.xml', days_ago =  days_ago)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response

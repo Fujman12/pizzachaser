@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <sitemap>
+
+      <loc>https://pizzachaser.com/city/sitemap.xml</loc>
+
+      <lastmod>2017-01-25</lastmod>
+
+   </sitemap>
+
+   <sitemap>
+
+      <loc>https://pizzachaser.com/state/sitemap.xml</loc>
+
+      <lastmod>2017-01-25</lastmod>
+
+   </sitemap>
+
+   <sitemap>
+
+      <loc>https://pizzachaser.com/pizza_restaurant/sitemap.xml</loc>
+
+      <lastmod>{{days_ago}}</lastmod>
+
+   </sitemap>
+   <sitemap>
+
+      <loc>https://pizzachaser.com/pizza_restaurant/sitemap1.xml</loc>
+
+      <lastmod>2017-01-25</lastmod>
+
+   </sitemap>
+   <sitemap>
+
+      <loc>https://pizzachaser.com/pizza_restaurant/sitemap2.xml</loc>
+
+      <lastmod>2017-01-25</lastmod>
+
+   </sitemap>
+
+</sitemapindex>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for rest in rests %}
+    <url>
+        <loc>https://pizzachaser.com{{url_for('main.pizza_restaurant', id = rest.id)}}</loc>
+        <lastmod>{{days_ago}}</lastmod>
+    </url>
+    {% endfor %}
+</urlset>
