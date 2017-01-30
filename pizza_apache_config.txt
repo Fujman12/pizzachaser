@@ -1,0 +1,42 @@
+<VirtualHost 67.214.163.90:443>
+  ServerName pizzachaser.com
+  ServerAlias www.pizzacahser.com
+  DocumentRoot /home/pizza/apps/pizzachaser
+  Alias /static /home/pizza/apps/pizzachaser/app/static
+
+  ScriptAlias / /home/pizza/apps/pizzachaser/runp-mysql.fcgi/
+  <IfModule !mod_disable_suexec.c>
+      SuexecUserGroup pizza pizza
+  </IfModule>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css text/javascript application/javascript
+  </IfModule>
+
+  <IfModule ssl_module>
+    SSLEngine on
+
+    SSLCertificateFile /var/cpanel/ssl/installed/certs/pizzachaser_com_b034f_66cbf_1514073599_81cade523db6b00aa5e2484953fbdb01.crt
+    SSLCertificateKeyFile /var/cpanel/ssl/installed/keys/b034f_66cbf_31c922d41ccd91c29a9c798133cdacb3.key
+    SSLCACertificateFile /var/cpanel/ssl/installed/cabundles/COMODO_CA_Limited_dbe3e9376d3359020526b6bc3f725c0f_1865548799.cabundle
+    CustomLog /usr/local/apache/domlogs/pizzachaser.com-ssl_log combined
+    SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+    <Directory "/home/pizza/apps/pizzachaser/app/static/cgi-bin">
+      SSLOptions +StdEnvVars
+    </Directory>
+  </IfModule>
+  <IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-font-woff "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/x-javascript "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
+  </IfModule>
+</VirtualHost>
