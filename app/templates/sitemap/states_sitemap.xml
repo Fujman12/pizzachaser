@@ -3,7 +3,7 @@
     {% for state in states %}
     <url>
         <loc>https://pizzachaser.com{{url_for('main.state', state = state.name)}}</loc>
-        <lastmod>2017-01-01</lastmod>
+        <lastmod>2017-01-25</lastmod>
     </url>
     {% endfor %}
 </urlset>

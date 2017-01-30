@@ -3,7 +3,7 @@
     {% for city in cities %}
     <url>
         <loc>https://pizzachaser.com{% if city.state %}{{url_for('main.city', region = city.state.name, city_name = city.name)}} {% else %} {{url_for('main.city', region = city.country.name, city_name = city.name)}} {% endif %}</loc>
-        <lastmod>2017-25-01</lastmod>
+        <lastmod>2017-01-25</lastmod>
     </url>
     {% endfor %}
 </urlset>
