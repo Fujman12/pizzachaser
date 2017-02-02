@@ -47,7 +47,7 @@
 			<ul style="padding-left: 0">
 				{% for review in reviews %}
 				<li style="border: 1px solid black; border-radius: 5px; list-style-type: none; padding-bottom: 18px; background-color: #fff; margin-bottom: 30px;">
-					<h3 style="font-family: sans-serif; padding-left: 15px">{{review.restaurant.name}} ({{review.restaurant.city.name}},{% if review.restaurant.city.state %}{{review.restaurant.state.name}}{% else %}{{review.restaurant.country.name}}{% endif %})</h3>
+					<h3 style="font-family: sans-serif; padding-left: 15px">{{review.restaurant.name}} ({{review.restaurant.city.name}}, {% if review.restaurant.city.state %}{{review.restaurant.state.name}}{% else %}{{review.restaurant.country.name}}{% endif %})</h3>
 					<u><p style="font-size: 18px;font-style: italic; padding:0 15px">
 						{{review.text}}
 					</p></u>
