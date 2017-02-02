@@ -1,16 +1,16 @@
 from flask import render_template, session, redirect, url_for, current_app,request, make_response
 from .. import db
-from ..models import City, Restaurant,State,Country,Review
+from ..models import City, Restaurant,State,Country,Review, User
 from ..email import send_email
 from . import main
-from .forms import ReviewForm, OwnForm
+from .forms import ReviewForm, OwnForm, LoginForm
 from flask import jsonify
 from flask import flash
 import sys
 import json
 from decimal import *
 from datetime import datetime, timedelta, date
-
+from flask_login import login_required, login_user
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -57,7 +57,7 @@ def city(region,city_name):
     #else:
     #    region = state
     current_city = City.query.filter_by(name = city_name).first()
-    rests_in_city = current_city.restaurants.all()
+    rests_in_city = current_city.restaurants.filter_by(published = True).all()
     new_rests = []
     for rest in rests_in_city:
         reviews = rest.reviews.all()
@@ -80,12 +80,12 @@ def pizza_restaurant(id):
 
     restaurant= Restaurant.query.filter_by(id = id).first()
     form = ReviewForm()
-    reviews = Review.query.filter_by(restaurant = restaurant).all()
+    reviews = Review.query.filter_by(restaurant = restaurant, published = True).all()
     if form.validate_on_submit():
         points = form.radio.data
-        flash('Your review has been added succesfully! You gave %s point(s).'% points)
+        flash('Thank you! Your review has been succesfully added to moderation! You gave %s point(s).'% points)
 
-        review = Review(points = form.radio.data,user =  form.name.data, text = form.review_field.data,restaurant = restaurant)
+        review = Review(points = form.radio.data,user =  form.name.data, text = form.review_field.data, restaurant = restaurant, published = False)
         db.session.add(review)
         db.session.commit()
         return  redirect(url_for('main.pizza_restaurant', id = restaurant.id))
@@ -112,10 +112,10 @@ def own_a_restaurant():
                 city = state.cities.filter_by(name = form.city.data).first()
                 if city != None:
                     country = Country.query.filter_by(name = "USA").first()
-                    rest = Restaurant(name = form.name_of_rest.data, country = country, state = state, city =  city, address = form.address.data)
+                    rest = Restaurant(name = form.name_of_rest.data, country = country, state = state, city =  city, address = form.address.data, published = False)
                     db.session.add(rest)
                     db.session.commit()
-                    flash('Your Restaurant succesfully added! Thank you!')
+                    flash('Your Restaurant succesfully added to moderation! Thank you!')
                     return  redirect(url_for('main.own_a_restaurant'))
                 else:
                     flash('Wrong city name')
@@ -126,10 +126,10 @@ def own_a_restaurant():
 
                 if city != None:
 
-                    rest = Restaurant(name = form.name_of_rest.data,country = country, city =  city, address = form.address.data)
+                    rest = Restaurant(name = form.name_of_rest.data,country = country, city =  city, address = form.address.data, published = False)
                     db.session.add(rest)
                     db.session.commit()
-                    flash('Your Restaurant succesfully added! Thank you!')
+                    flash('Your Restaurant succesfully added to moderation! Thank you!')
                     return  redirect(url_for('main.own_a_restaurant'))
                 else:
                     flash('Wrong city name')
@@ -272,3 +272,82 @@ def sitemap_index():
     response.headers["Content-Type"] = "application/xml"
 
     return response
+
+@main.route('/admin_login', methods=['GET','POST'])
+def admin_login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(name=form.login.data).first()
+        if user is not None and user.verify_password(form.password.data):
+            login_user(user)
+            return redirect(request.args.get('next') or url_for('main.admin_restaurants'))
+        flash('Invalid username or password.')
+
+    return render_template('task.html', form = form)
+
+
+
+@main.route('/admin_feedbacks')
+@login_required
+def admin_feedbacks():
+
+    if request.args.get("action"):
+        action = request.args.get("action")
+        if action == 'approve':
+            review = Review.query.filter_by(id = request.args.get("id")).first()
+            if review is not None:
+                review.published = True
+                db.session.add(review)
+                db.session.commit()
+        elif action == 'remove' :
+            review = Review.query.filter_by(id = request.args.get("id")).first()
+            if review is not None:
+                db.session.delete(review)
+                db.session.commit()
+
+    reviews =  Review.query.filter_by(published = False).all()
+    return render_template('admin_feedbacks.html', reviews = reviews )
+
+
+@main.route('/admin_restaurants')
+@login_required
+def admin_restaurants():
+
+
+    if request.args.get("action"):
+        action = request.args.get("action")
+        if action == 'approve':
+            rest = Restaurant.query.filter_by(id = request.args.get("id")).first()
+            if rest is not None:
+                rest.published = True
+                db.session.add(rest)
+                db.session.commit()
+        elif action == 'remove' :
+            rest = Restaurant.query.filter_by(id = request.args.get("id")).first()
+            if rest is not None:
+                db.session.delete(rest)
+                db.session.commit()
+
+    pending_rests = Restaurant.query.filter_by(published = False).all()
+
+    new_rests = []
+    for rest in pending_rests:
+        reviews = rest.reviews.all()
+        summ = Decimal(0)
+        avg = Decimal(0)
+
+        count = len(reviews)
+        if count == 0:
+            count = 1
+        for review in reviews:
+            summ += Decimal(review.points)
+        avg = Decimal(summ/count)
+        if rest.state is not None:
+            region = rest.state
+        else:
+            region = rest.country
+        new_rest = {'id':rest.id,'name':rest.name,'address':rest.address,'avg':avg, 'city': rest.city, 'region' : region}
+        new_rests.append(new_rest)
+
+    return render_template('admin_restaurants.html' , rests = new_rests)

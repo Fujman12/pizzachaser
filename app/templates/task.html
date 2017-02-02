@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'task.css')}}">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+
+    {{ message }}
+    </div>
+    {% endfor %}
+    <div class="wrapper">
+
+        <form action="" method = "POST">
+          {{ form.hidden_tag() }}
+          {{ form.csrf_token }}
+            Login: {{form.login}}<br>
+            Password: {{form.password}}<br>
+            <!--Restaurants: <input type="radio" name="radio"> &nbsp;&nbsp;
+            Feedbacks: <input type="radio" name="radio"> &nbsp;&nbsp; -->
+            {{form.submit}}
+        </form>
+    </div>
+</body>
+</html>
